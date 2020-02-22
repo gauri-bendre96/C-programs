@@ -1,0 +1,104 @@
+18:35:41 **** Clean-only build of configuration Debug for project Application_1 ****
+make clean 
+rm -rf  ./src/Customer.o ./src/Main_Menu.o  ./src/Customer.d ./src/Main_Menu.d  Application_1
+ 
+18:35:48 **** Build of configuration Debug for project Application_1 ****
+make all 
+Building file: ../src/Customer.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/Customer.d" -MT"src/Customer.o" -o "src/Customer.o" "../src/Customer.c"
+../src/Customer.c: In function ‘Accept_Product_record’:
+../src/Customer.c:186:12: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘char (*)[100]’ [-Wformat=]
+    scanf("%s", &ptr->category);
+           ~^   ~~~~~~~~~~~~~~
+../src/Customer.c: In function ‘find_emp_by_name’:
+../src/Customer.c:285:6: warning: implicit declaration of function ‘strcmp’ [-Wimplicit-function-declaration]
+   if(strcmp(e.name ,name) == 0)
+      ^~~~~~
+../src/Customer.c: In function ‘read_order_item’:
+../src/Customer.c:376:26: warning: passing argument 1 of ‘print_orders_record’ from incompatible pointer type [-Wincompatible-pointer-types]
+      print_orders_record(&q);
+                          ^
+../src/Customer.c:360:6: note: expected ‘Orders_t * {aka struct Orders *}’ but argument is of type ‘Orders_t ** {aka struct Orders **}’
+ void print_orders_record(Orders_t *prt)
+      ^~~~~~~~~~~~~~~~~~~
+Finished building: ../src/Customer.c
+ 
+Building file: ../src/Main_Menu.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/Main_Menu.d" -MT"src/Main_Menu.o" -o "src/Main_Menu.o" "../src/Main_Menu.c"
+../src/Main_Menu.c: In function ‘main’:
+../src/Main_Menu.c:94:22: warning: passing argument 1 of ‘Register_Customer’ from incompatible pointer type [-Wincompatible-pointer-types]
+    Register_Customer(&Customer);
+                      ^
+In file included from ../src/Main_Menu.c:4:0:
+../src/../include/Customer.h:49:6: note: expected ‘Customer_t * {aka struct Customer *}’ but argument is of type ‘Customer_t (*)[10] {aka struct Customer (*)[10]}’
+ void Register_Customer(Customer_t *ptr);
+      ^~~~~~~~~~~~~~~~~
+../src/Main_Menu.c:95:37: warning: passing argument 2 of ‘Write_Customer_Record’ from incompatible pointer type [-Wincompatible-pointer-types]
+    Write_Customer_Record(filename , &Customer);
+                                     ^
+In file included from ../src/Main_Menu.c:4:0:
+../src/../include/Customer.h:50:6: note: expected ‘Customer_t * {aka struct Customer *}’ but argument is of type ‘Customer_t (*)[10] {aka struct Customer (*)[10]}’
+ void Write_Customer_Record( char *filename  , Customer_t *ptr);
+      ^~~~~~~~~~~~~~~~~~~~~
+../src/Main_Menu.c:179:28: warning: passing argument 1 of ‘Accept_Product_record’ from incompatible pointer type [-Wincompatible-pointer-types]
+      Accept_Product_record(&Product);
+                            ^
+In file included from ../src/Main_Menu.c:4:0:
+../src/../include/Customer.h:61:6: note: expected ‘Product_t * {aka struct Product *}’ but argument is of type ‘Product_t (*)[10] {aka struct Product (*)[10]}’
+ void Accept_Product_record(Product_t *ptr);
+      ^~~~~~~~~~~~~~~~~~~~~
+../src/Main_Menu.c:180:38: warning: passing argument 2 of ‘write_product_record’ from incompatible pointer type [-Wincompatible-pointer-types]
+      write_product_record(filename2, &Product);
+                                      ^
+In file included from ../src/Main_Menu.c:4:0:
+../src/../include/Customer.h:63:6: note: expected ‘Product_t * {aka struct Product *}’ but argument is of type ‘Product_t (*)[10] {aka struct Product (*)[10]}’
+ void write_product_record( char *filename2, Product_t *ptr);
+      ^~~~~~~~~~~~~~~~~~~~
+../src/Main_Menu.c:78:8: warning: unused variable ‘filename3’ [-Wunused-variable]
+  char *filename3 = "orders.db";
+        ^~~~~~~~~
+Finished building: ../src/Main_Menu.c
+ 
+Building target: Application_1
+Invoking: GCC C Linker
+gcc  -o "Application_1"  ./src/Customer.o ./src/Main_Menu.o   
+Finished building target: Application_1
+ 
+18:35:59 **** Incremental Build of configuration Debug for project Application_1 ****
+make all 
+make: Nothing to be done for 'all'.
+18:37:39 **** Incremental Build of configuration Debug for project Application_1 ****
+make all 
+make: Nothing to be done for 'all'.
+18:40:04 **** Incremental Build of configuration Debug for project Application_1 ****
+make all 
+Building file: ../src/Customer.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/Customer.d" -MT"src/Customer.o" -o "src/Customer.o" "../src/Customer.c"
+../src/Customer.c: In function ‘Accept_Product_record’:
+../src/Customer.c:186:12: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘char (*)[100]’ [-Wformat=]
+    scanf("%s", &ptr->category);
+           ~^   ~~~~~~~~~~~~~~
+../src/Customer.c: In function ‘find_emp_by_name’:
+../src/Customer.c:285:6: warning: implicit declaration of function ‘strcmp’ [-Wimplicit-function-declaration]
+   if(strcmp(e.name ,name) == 0)
+      ^~~~~~
+../src/Customer.c: In function ‘read_order_item’:
+../src/Customer.c:377:26: warning: passing argument 1 of ‘print_orders_record’ from incompatible pointer type [-Wincompatible-pointer-types]
+      print_orders_record(&q);
+                          ^
+../src/Customer.c:361:6: note: expected ‘Orders_t * {aka struct Orders *}’ but argument is of type ‘Orders_t ** {aka struct Orders **}’
+ void print_orders_record(Orders_t *prt)
+      ^~~~~~~~~~~~~~~~~~~
+Finished building: ../src/Customer.c
+ 
+Building target: Application_1
+Invoking: GCC C Linker
+gcc  -o "Application_1"  ./src/Customer.o ./src/Main_Menu.o   
+Finished building target: Application_1
+ 
+18:40:12 **** Incremental Build of configuration Debug for project Application_1 ****
+make all 
+make: Nothing to be done for 'all'.

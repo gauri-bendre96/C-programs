@@ -1,0 +1,19 @@
+#ifndef CUSTOMER_H_
+#define CUSTOMER_H_
+
+//struct Customer;
+
+typedef struct Customer
+{
+	int id;
+	char name[50];
+	char address[100];
+} Customer_t;
+
+const char *filename = "Customer.db";
+
+void Register_Customer(Customer_t Customer[] , int size);
+void Print_Customer_Record(Customer_t Customer[] , int size);
+void Write_Record( const char *filename );
+
+#endif /* CUSTOMER_H_ */

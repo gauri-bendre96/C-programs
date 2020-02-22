@@ -1,0 +1,33 @@
+#ifndef CUSTOMER_H_
+#define CUSTOMER_H_
+
+//struct Customer;
+
+typedef struct Customer
+{
+	int id;
+	char name[50];
+	char address[100];
+} Customer_t;
+
+
+typedef struct Product
+{
+	int id;
+	char name[50];
+	char category[100];
+	double rate;
+}Product_t;
+
+const char *filename;
+const char *filename1;
+
+void Register_Customer(Customer_t Customer[] , int size);
+void Print_Customer_Record(Customer_t Customer[] , int size);
+void Write_Record( const char *filename );
+//void Read_Record( const char *filename);
+
+void Write_Product_Category( char * filename1);
+
+
+#endif /* CUSTOMER_H_ */

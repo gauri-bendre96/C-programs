@@ -1,0 +1,164 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include "../include/Customer.h"
+
+Customer_t Customer[10];
+Product_t Product[10];
+Date_t Date[10];
+
+
+void Student_information()
+{
+	printf("Student Name : %s\n" , "Gauri Bendre");
+	printf("Roll Number  : %d\n" , 36115);
+	printf("Center Name  : %s\n" , "SunBeam Infotech");
+	printf("Course Name  : %s\n" , "PG-DAC");
+	printf("Mission Statement  : %s\n" , "I will NEVER QUIT");
+}
+
+int Main_menu_list()
+{
+	int choice;
+	printf("\n0. Exit");
+	printf("\n1. Register Customer");
+	printf("\n2. Customer");
+	printf("\n3. Admin");
+	printf("\nEnter your Choice :");
+	scanf("%d" , &choice);
+	return choice;
+}
+
+
+int Customer_Menu()
+{
+	int choice;
+		printf("\n\t0. Exit");
+		printf("\n\t1. List Product Categories");
+		printf("\n\t2. Product Items per category");
+		printf("\n\t3. Order an item");
+		printf("\n\t4. List Pending Orders");
+		printf("\n\t5. List delivered Items");
+		printf("\n\tEnter your Choice : ");
+		scanf("%d" , &choice);
+		return choice;
+}
+
+int Admin_Menu()
+{
+	int choice;
+		printf("\n\t0. Exit");
+		printf("\n\t1. List Product Categories");
+		printf("\n\t2. Add Product Category");
+		printf("\n\t3. List all products");
+		printf("\n\t4. Find Product by name");
+		printf("\n\t5. Edit Product");
+		printf("\n\t6. Delete Product");
+		printf("\n\t7. List Pending Products");
+		printf("\n\t8. List Delivered orders");
+		printf("\n\t9. Dispatch Order");
+		printf("\n\t10. Add product from user");
+		printf("\n\tEnter your Choice : ");
+		scanf("%d" , &choice);
+		return choice;
+}
+
+
+
+int main()
+{
+	Student_information();
+	int choice;
+	char *filename = "Customer.db";
+	char *filename1 = "Categories.txt";
+	char *filename2 = "products.db";
+	char *filename3 = "orders.db";
+
+	int Choice_of_Customer;
+	int Choice_of_Admin;
+
+	int Quantity_of_Items;
+
+	char Status[10];
+	while((choice = Main_menu_list() ) != 0 )
+	{
+		switch(choice)
+		{
+		case 1:
+			Register_Customer(&Customer);
+			Write_Customer_Record(filename , &Customer);
+			Read_Customer_Record(filename);
+			//Print_Customer_Record(Customer , 1);
+			break;
+
+		case 2 :
+			printf("Enter the Customer-Id : ");
+			scanf("%d" , &Customer->Customer_id);
+			while ((Choice_of_Customer = Customer_Menu()) != 0)
+			{
+				switch(Choice_of_Customer)
+				{
+				case 1:
+					Read_Record_Categories(filename1);
+					break;
+
+				case 2:
+					//Write_Product_Products(filename2 );
+					break;
+				case 3:
+					break;
+				case 4:
+
+					break;
+				case 5:
+					break;
+				case 6:
+					break;
+
+				}
+			}
+			break;
+
+		case 3:
+			while((Choice_of_Admin = Admin_Menu()) != 0)
+			{
+				switch(Choice_of_Admin)
+				{
+				case 1:
+					Read_Record_Categories(filename1);
+					break;
+				case 2:
+					Add_Produt_Category(filename1);
+					break;
+				case 3:
+					read_product_record(filename2);
+					break;
+				case 4:
+
+					break;
+				case 5:
+					void find_emp_by_name();
+					break;
+				case 6:
+					Delete_Product();
+					break;
+				case 7:
+
+					break;
+				case 8:
+
+					break;
+				case 9:
+
+					break;
+				case 10:
+					Accept_Product_record(&Product);
+					write_product_record(filename2, &Product);
+					break;
+				}
+			}
+			break;
+		}
+	}
+	return 0;
+}

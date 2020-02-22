@@ -1,0 +1,24 @@
+/*
+ * Customer.h
+ *
+ *  Created on: 18-Feb-2020
+ *      Author: sunbeam
+ */
+
+#ifndef CUSTOMER_H_
+#define CUSTOMER_H_
+
+typedef struct Customer
+{
+	int id;
+	char name[50];
+	char address[100];
+} Customer_t;
+
+Customer_t Customer[2];
+
+void Register_Customer(Customer_t Customer[] , int size);
+
+
+
+#endif /* CUSTOMER_H_ */

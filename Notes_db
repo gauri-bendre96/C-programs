@@ -1,0 +1,468 @@
+Alter :
+
+
+
+****RENAME TABLE table_name to new_table_name;
+
+eg.
+RENAME TABLE temporary_ops To temp;\
+Query OK, 0 rows affected (0.62 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_db_dac |
++------------------+
+| temp             |
++------------------+
+
+
+
+
+**** ALTER TABLE table_name MODIFY COLUMN_NAME COLUMN_DEFINITION ;
+
+
+ eg.  desc temp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID     | int(11)     | YES  |     | NULL    |       |
+| Name   | varchar(10) | YES  |     | NULL    |       |
+| salary | int(6)      | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+alter table temp modify column salary int(5);
+Query OK, 0 rows affected, 1 warning (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> desc temp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID     | int(11)     | YES  |     | NULL    |       |
+| Name   | varchar(10) | YES  |     | NULL    |       |
+| salary | int(5)      | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+
+**** ALTER TABLE table_name RENAME COLUMN column_name;
+
+eg.
+desc temporary_ops;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| ID    | int(11)     | YES  |     | NULL    |       |
+| Name  | varchar(10) | YES  |     | NULL    |       |
+| sal   | int(11)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+
+alter table temp rename column sal to salary;
+Query OK, 0 rows affected (0.46 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc temp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID     | int(11)     | YES  |     | NULL    |       |
+| Name   | varchar(10) | YES  |     | NULL    |       |
+| salary | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+
+
+*****ADD COLUMN*********
+****ALTER TABLE table_name ADD COLUMN column_name column_definition;
+
+
+desc temp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID     | int(11)     | YES  |     | NULL    |       |
+| Name   | varchar(10) | YES  |     | NULL    |       |
+| salary | int(5)      | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> ALTER TABLE table_name ADD COLUMN AGE int;
+ERROR 1146 (42S02): Table 'db_dac.table_name' doesn't exist
+mysql> ALTER TABLE temp ADD COLUMN AGE int;
+Query OK, 0 rows affected (0.62 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc temp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID     | int(11)     | YES  |     | NULL    |       |
+| Name   | varchar(10) | YES  |     | NULL    |       |
+| salary | int(5)      | YES  |     | NULL    |       |
+| AGE    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+
+*****REMOVE COLUMN*********
+
+ALTER TABLE table_name DROP COLUMN column_name;
+
+desc temp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID     | int(11)     | YES  |     | NULL    |       |
+| Name   | varchar(10) | YES  |     | NULL    |       |
+| salary | int(5)      | YES  |     | NULL    |       |
+| AGE    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE temp DROP COLUMN age;
+Query OK, 0 rows affected (1.45 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc temp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID     | int(11)     | YES  |     | NULL    |       |
+| Name   | varchar(10) | YES  |     | NULL    |       |
+| salary | int(5)      | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+
+
+**********COPY CONTENTS OF TABLE WHILE CREATING***********
+
+
+CREATE TABLE table_name AS (SELECT * FROM table_name);
+
+SELECT * FROM temp;
++------+------+--------+
+| ID   | Name | salary |
++------+------+--------+
+|    1 | BAC  |  20000 |
+|    2 | GAP  |  30000 |
+|    3 | BAAP |  40000 |
+|    4 | DOPE |  65000 |
++------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE new_temp AS (SELECT * FROM temp);
+Query OK, 4 rows affected (0.80 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM new_temp;
++------+------+--------+
+| ID   | Name | salary |
++------+------+--------+
+|    1 | BAC  |  20000 |
+|    2 | GAP  |  30000 |
+|    3 | BAAP |  40000 |
+|    4 | DOPE |  65000 |
++------+------+--------+
+4 rows in set (0.01 sec)
+
+*******TO DROP TABLE*****
+
+DROP TABLE table_name;
+
+*******TO COPY STRUCTURE OF TABLE ONLY**************
+
+
+SELECT * FROM temp;
++------+------+--------+
+| ID   | Name | salary |
++------+------+--------+
+|    1 | BAC  |  20000 |
+|    2 | GAP  |  30000 |
+|    3 | BAAP |  40000 |
+|    4 | DOPE |  65000 |
++------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE new_temp AS (SELECT * FROM temp);
+Query OK, 4 rows affected (0.80 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM new_temp;
++------+------+--------+
+| ID   | Name | salary |
++------+------+--------+
+|    1 | BAC  |  20000 |
+|    2 | GAP  |  30000 |
+|    3 | BAAP |  40000 |
+|    4 | DOPE |  65000 |
++------+------+--------+
+4 rows in set (0.01 sec)
+
+
+
+*********COPY CONTENTS OD TABLE AFTER CREATING***********
+
+select * from new_temp;
+Empty set (0.01 sec)
+
+mysql> INSERT INTO new_temp (SELECT * FROM temp);
+Query OK, 4 rows affected (0.39 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from new_temp;
++------+------+--------+
+| ID   | Name | salary |
++------+------+--------+
+|    1 | BAC  |  20000 |
+|    2 | GAP  |  30000 |
+|    3 | BAAP |  40000 |
+|    4 | DOPE |  65000 |
++------+------+--------+
+4 rows in set (0.00 sec)
+
+
+
+**********VIRTUAL COLUMN********
+
+ALIAS NAME using AS
+
+select * from new_temp;
++------+------+--------+
+| ID   | Name | salary |
++------+------+--------+
+|    1 | BAC  |  20000 |
+|    2 | GAP  |  30000 |
+|    3 | BAAP |  40000 |
+|    4 | DOPE |  65000 |
++------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select id , name , salary , salary - salary * 0.06 from new_temp;
++------+------+--------+------------------------+
+| id   | name | salary | salary - salary * 0.06 |
++------+------+--------+------------------------+
+|    1 | BAC  |  20000 |               18800.00 |
+|    2 | GAP  |  30000 |               28200.00 |
+|    3 | BAAP |  40000 |               37600.00 |
+|    4 | DOPE |  65000 |               61100.00 |
++------+------+--------+------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select id , name , salary , salary - salary * 0.06 AS revised_salary  from new_temp;
++------+------+--------+----------------+
+| id   | name | salary | revised_salary |
++------+------+--------+----------------+
+|    1 | BAC  |  20000 |       18800.00 |
+|    2 | GAP  |  30000 |       28200.00 |
+|    3 | BAAP |  40000 |       37600.00 |
+|    4 | DOPE |  65000 |       61100.00 |
++------+------+--------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select id , name , salary , salary - salary * 0.06 AS "revised salary"  from new_temp;
++------+------+--------+----------------+
+| id   | name | salary | revised salary |
++------+------+--------+----------------+
+|    1 | BAC  |  20000 |       18800.00 |
+|    2 | GAP  |  30000 |       28200.00 |
+|    3 | BAAP |  40000 |       37600.00 |
+|    4 | DOPE |  65000 |       61100.00 |
++------+------+--------+----------------+
+4 rows in set (0.00 sec)
+
+
+
+
+**************UNIQUE RECORD*********
+
+select id , name , salary , salary - salary * 0.06 AS revised_salary  from new_temp;
++------+------+--------+----------------+
+| id   | name | salary | revised_salary |
++------+------+--------+----------------+
+|    1 | BAC  |  20000 |       18800.00 |
+|    2 | GAP  |  30000 |       28200.00 |
+|    3 | BAAP |  40000 |       37600.00 |
+|    4 | DOPE |  65000 |       61100.00 |
+|    5 | BAAP |  20000 |       18800.00 |
++------+------+--------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select distinct name from new_temp;
++------+
+| name |
++------+
+| BAC  |
+| GAP  |
+| BAAP |
+| DOPE |
++------+
+4 rows in set (0.00 sec)
+
+
+**********Restricted no of users*******
+
+LIMIT keyword is used.
+LIMIT 3 : UPPER 3 records
+LIMIT 3,2 : skip first 3 , print next two.
+
+select * from new_temp limit 3;
++------+------+--------+
+| ID   | Name | salary |
++------+------+--------+
+|    1 | BAC  |  20000 |
+|    2 | GAP  |  30000 |
+|    3 | BAAP |  40000 |
++------+------+--------+
+3 rows in set (0.01 sec)
+
+mysql> select * from new_temp limit (3, 2);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(3, 2)' at line 1
+mysql> 
+mysql> select * from new_temp limit 3,2;
++------+------+--------+
+| ID   | Name | salary |
++------+------+--------+
+|    4 | DOPE |  65000 |
+|    5 | BAAP |  20000 |
++------+------+--------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+**********SORTING USING ORDER BY************
+
+
+SELECT * from new_temp order by salary;
++------+------+--------+
+| ID   | Name | salary |
++------+------+--------+
+|    1 | BAC  |  20000 |
+|    5 | BAAP |  20000 |
+|    2 | GAP  |  30000 |
+|    3 | BAAP |  40000 |
+|    4 | DOPE |  65000 |
++------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from new_temp order by salary desc;
++------+------+--------+
+| ID   | Name | salary |
++------+------+--------+
+|    4 | DOPE |  65000 |
+|    3 | BAAP |  40000 |
+|    2 | GAP  |  30000 |
+|    1 | BAC  |  20000 |
+|    5 | BAAP |  20000 |
++------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from new_temp order by name;
++------+------+--------+
+| ID   | Name | salary |
++------+------+--------+
+|    3 | BAAP |  40000 |
+|    5 | BAAP |  20000 |
+|    1 | BAC  |  20000 |
+|    4 | DOPE |  65000 |
+|    2 | GAP  |  30000 |
++------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from new_temp order by 2;
++------+------+--------+
+| ID   | Name | salary |
++------+------+--------+
+|    3 | BAAP |  40000 |
+|    5 | BAAP |  20000 |
+|    1 | BAC  |  20000 |
+|    4 | DOPE |  65000 |
+|    2 | GAP  |  30000 |
++------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from new_temp order by name ASC , salary DESC;
++------+------+--------+
+| ID   | Name | salary |
++------+------+--------+
+|    3 | BAAP |  40000 |
+|    5 | BAAP |  20000 |
+|    1 | BAC  |  20000 |
+|    4 | DOPE |  65000 |
+|    2 | GAP  |  30000 |
++------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from new_temp order by name desc , salary ASC;
++------+------+--------+
+| ID   | Name | salary |
++------+------+--------+
+|    2 | GAP  |  30000 |
+|    4 | DOPE |  65000 |
+|    1 | BAC  |  20000 |
+|    5 | BAAP |  20000 |
+|    3 | BAAP |  40000 |
++------+------+--------+
+5 rows in set (0.00 sec)
+
+
+
+********SORTING ON COMPUTED COLUMN*************
+
+select id , name , salary , salary - salary * 0.06 AS revised_salary  from new_temp;
++------+------+--------+----------------+
+| id   | name | salary | revised_salary |
++------+------+--------+----------------+
+|    1 | BAC  |  20000 |       18800.00 |
+|    2 | GAP  |  30000 |       28200.00 |
+|    3 | BAAP |  40000 |       37600.00 |
+|    4 | DOPE |  65000 |       61100.00 |
+|    5 | BAAP |  20000 |       18800.00 |
++------+------+--------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select id , name , salary , salary - salary * 0.06 AS revised_salary  from new_temp order by revised_salary desc;
++------+------+--------+----------------+
+| id   | name | salary | revised_salary |
++------+------+--------+----------------+
+|    4 | DOPE |  65000 |       61100.00 |
+|    3 | BAAP |  40000 |       37600.00 |
+|    2 | GAP  |  30000 |       28200.00 |
+|    1 | BAC  |  20000 |       18800.00 |
+|    5 | BAAP |  20000 |       18800.00 |
++------+------+--------+----------------+
+5 rows in set (0.00 sec)
+
+
+
+**************TRUNCATE**********
+
+TRUNCATE table  temp ;
+Query OK, 0 rows affected (0.87 sec)
+
+mysql> TRUNCATE table  new_temp ;
+Query OK, 0 rows affected (1.05 sec)
+
+
+
+

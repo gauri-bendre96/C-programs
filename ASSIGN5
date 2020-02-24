@@ -1,0 +1,346 @@
+Group by :
+
+1. Write a query that counts the number of salespeople registering
+orders for eachday. (If a salesperson has more than one order on a
+given day, he or she should be
+counted only once.).
+
+-> select snum , odate , count(snum) from ORDERS GROUP by snum, odate order by odate , snum;
++------+------------+-------------+
+| snum | odate      | count(snum) |
++------+------------+-------------+
+| 1001 | 1990-10-03 |           1 |
+| 1002 | 1990-10-03 |           1 |
+| 1004 | 1990-10-03 |           1 |
+| 1007 | 1990-10-03 |           2 |
+| 1001 | 1990-10-04 |           2 |
+| 1002 | 1990-10-04 |           2 |
+| 1003 | 1990-10-04 |           1 |
++------+------------+-------------+
+7 rows in set (0.00 sec)
+
+
+2.2. Write a query on the Customers table that will find the highest
+rating in each city. Put the output in this form:
+For the city (city), the highest rating is : (rating).
+
+->
+
+select city ,MAX( rating )from CUSTOMERS group by city order by city desc;
++----------+---------------+
+| city     | MAX( rating ) |
++----------+---------------+
+| San Jose |           300 |
+| Rome     |           200 |
+| London   |           100 |
+| Berlin   |           300 |
++----------+---------------+
+4 rows in set (0.00 sec)
+
+
+3.3 Write a query that totals the orders for each day and places the
+results in descending order.
+
+select odate , SUM(amt) from ORDERS group by odate order by odate desc;
++------------+----------+
+| odate      | SUM(amt) |
++------------+----------+
+| 1990-10-04 | 16713.81 |
+| 1990-10-03 |  8944.59 |
++------------+----------+
+2 rows in set (0.00 sec)
+
+select CONCAT('For the city' , city , ' , ' , 'the highest rating is : ' , MAX(rating)) from CUSTOMERS group by city order by city desc;
++----------------------------------------------------------------------------------+
+| CONCAT('For the city' , city , ' , ' , 'the highest rating is : ' , MAX(rating)) |
++----------------------------------------------------------------------------------+
+| For the citySan Jose , the highest rating is : 300                               |
+| For the cityRome , the highest rating is : 200                                   |
+| For the cityLondon , the highest rating is : 100                                 |
+| For the cityBerlin , the highest rating is : 300                                 |
++----------------------------------------------------------------------------------+
+4 rows in set (0.27 sec)
+
+
+
+
+4)
+
+Write a query that selects the total amount in orders for each
+salesperson for whom this total is greater than the amount of the
+largest order in the table.
+
+select snum , sum(amt) AS total from ORDERS group by snum having sum(amt) > (select MAX(amt) from ORDERS);
++------+----------+
+| snum | total    |
++------+----------+
+| 1001 | 15382.07 |
++------+----------+
+1 row in set (0.27 sec)
+
+
+5)
+Write a query that selects the highest rating in each city.
+same as 2nd
+
+6)
+select snum ,max(amt) from ORDERS where amt > 3000 group by snum order by snum;
++------+----------+
+| snum | max(amt) |
++------+----------+
+| 1001 |  9891.88 |
+| 1002 |  5160.45 |
++------+----------+
+2 rows in set (0.00 sec)
+
+7)
+Select each customer smallest order.
+select cnum , min(amt) from ORDERS group by cnum order by cnum;
++------+----------+
+| cnum | min(amt) |
++------+----------+
+| 2001 |   767.19 |
+| 2002 |  1713.23 |
+| 2003 |  5160.45 |
+| 2004 |    75.75 |
+| 2006 |  4723.00 |
+| 2007 |  1900.10 |
+| 2008 |    18.69 |
++------+----------+
+7 rows in set (0.00 sec)
+
+************HR**************
+
+1)Display manager ID and number of employees managed by the
+manager.
+select MANAGER_ID, count(EMPLOYEE_ID) from employees group by MANAGER_ID;
++------------+--------------------+
+| MANAGER_ID | count(EMPLOYEE_ID) |
++------------+--------------------+
+|          0 |                  1 |
+|        100 |                 14 |
+|        101 |                  5 |
+|        102 |                  1 |
+|        103 |                  4 |
+|        108 |                  5 |
+|        114 |                  5 |
+|        120 |                  8 |
+|        121 |                  8 |
+|        122 |                  8 |
+|        123 |                  8 |
+|        124 |                  8 |
+|        145 |                  6 |
+|        146 |                  6 |
+|        147 |                  6 |
+|        148 |                  6 |
+|        149 |                  6 |
+|        201 |                  1 |
+|        205 |                  1 |
++------------+--------------------+
+19 rows in set (0.28 sec)
+
+
+2)
+Display the country ID and number of cities we have in the
+country.
+
+select COUNTRY_ID , count(CITY) from locations group by COUNTRY_ID;
++------------+-------------+
+| COUNTRY_ID | count(CITY) |
++------------+-------------+
+| "          |           1 |
+| AU         |           1 |
+| BR         |           1 |
+| CA         |           2 |
+| CH         |           2 |
+| CN         |           1 |
+| DE         |           1 |
+| IN         |           1 |
+| IT         |           2 |
+| JP         |           2 |
+| NL         |           1 |
+| Ox         |           1 |
+| SG         |           1 |
+| UK         |           2 |
+| US         |           4 |
++------------+-------------+
+15 rows in set (0.27 sec)
+
+
+3)
+Display average salary of employees in each department who have
+commission percentage.
+
+select DEPARTMENT_ID , avg(SALARY) from employees where COMMISSION_PCT IS NOT NULL group by DEPARTMENT_ID;
++---------------+--------------+
+| DEPARTMENT_ID | avg(SALARY)  |
++---------------+--------------+
+|             0 |  7000.000000 |
+|            10 |  4400.000000 |
+|            20 |  9500.000000 |
+|            30 |  4150.000000 |
+|            40 |  6500.000000 |
+|            50 |  3475.555556 |
+|            60 |  5760.000000 |
+|            70 | 10000.000000 |
+|            80 |  8955.882353 |
+|            90 | 19333.333333 |
+|           100 |  8600.000000 |
+|           110 | 10150.000000 |
++---------------+--------------+
+12 rows in set (0.00 sec)
+
+
+select DEPARTMENT_ID , avg(SALARY) from employees where COMMISSION_PCT != 0.00 group by DEPARTMENT_ID;
++---------------+-------------+
+| DEPARTMENT_ID | avg(SALARY) |
++---------------+-------------+
+|             0 | 7000.000000 |
+|            80 | 8955.882353 |
++---------------+-------------+
+2 rows in set (0.00 sec)
+
+
+4)
+Display job ID, number of employees, sum of salary, and
+difference between highest salary and lowest salary of the
+employees of the job.
+
+select JOB_ID , count(EMPLOYEE_ID) , SUM(salary) , MAX(salary) , MIN(salary) , MAX(salary) - MIN(salary)  from employees group by JOB_ID;
++------------+--------------------+-------------+-------------+-------------+---------------------------+
+| JOB_ID     | count(EMPLOYEE_ID) | SUM(salary) | MAX(salary) | MIN(salary) | MAX(salary) - MIN(salary) |
++------------+--------------------+-------------+-------------+-------------+---------------------------+
+| AC_ACCOUNT |                  1 |     8300.00 |     8300.00 |     8300.00 |                      0.00 |
+| AC_MGR     |                  1 |    12000.00 |    12000.00 |    12000.00 |                      0.00 |
+| AD_ASST    |                  1 |     4400.00 |     4400.00 |     4400.00 |                      0.00 |
+| AD_PRES    |                  1 |    24000.00 |    24000.00 |    24000.00 |                      0.00 |
+| AD_VP      |                  2 |    34000.00 |    17000.00 |    17000.00 |                      0.00 |
+| FI_ACCOUNT |                  5 |    39600.00 |     9000.00 |     6900.00 |                   2100.00 |
+| FI_MGR     |                  1 |    12000.00 |    12000.00 |    12000.00 |                      0.00 |
+| HR_REP     |                  1 |     6500.00 |     6500.00 |     6500.00 |                      0.00 |
+| IT_PROG    |                  5 |    28800.00 |     9000.00 |     4200.00 |                   4800.00 |
+| MK_MAN     |                  1 |    13000.00 |    13000.00 |    13000.00 |                      0.00 |
+| MK_REP     |                  1 |     6000.00 |     6000.00 |     6000.00 |                      0.00 |
+| PR_REP     |                  1 |    10000.00 |    10000.00 |    10000.00 |                      0.00 |
+| PU_CLERK   |                  5 |    13900.00 |     3100.00 |     2500.00 |                    600.00 |
+| PU_MAN     |                  1 |    11000.00 |    11000.00 |    11000.00 |                      0.00 |
+| SA_MAN     |                  5 |    61000.00 |    14000.00 |    10500.00 |                   3500.00 |
+| SA_REP     |                 30 |   250500.00 |    11500.00 |     6100.00 |                   5400.00 |
+| SH_CLERK   |                 20 |    64300.00 |     4200.00 |     2500.00 |                   1700.00 |
+| ST_CLERK   |                 20 |    55700.00 |     3600.00 |     2100.00 |                   1500.00 |
+| ST_MAN     |                  5 |    36400.00 |     8200.00 |     5800.00 |                   2400.00 |
++------------+--------------------+-------------+-------------+-------------+---------------------------+
+19 rows in set (0.00 sec)
+
+
+5) Display job ID for jobs with average salary more than 10000.
+
+select JOB_ID , avg(SALARY) from employees group by JOB_ID having avg(SALARY) > 10000;
++---------+--------------+
+| JOB_ID  | avg(SALARY)  |
++---------+--------------+
+| AC_MGR  | 12000.000000 |
+| AD_PRES | 24000.000000 |
+| AD_VP   | 17000.000000 |
+| FI_MGR  | 12000.000000 |
+| MK_MAN  | 13000.000000 |
+| PU_MAN  | 11000.000000 |
+| SA_MAN  | 12200.000000 |
++---------+--------------+
+7 rows in set (0.00 sec)
+
+
+6)Display years in which more than 10 employees joined.
+
+select DISTINCT(YEAR(HIRE_DATE)) from employees;
++-------------------+
+| (YEAR(HIRE_DATE)) |
++-------------------+
+|              1987 |
++-------------------+
+1 row in set (0.01 sec)
+
+
+7) Display departments in which more than five employees have
+commission percentage.
+
+
+select DEPARTMENT_ID from employees where COMMISSION_PCT != 0.00 group by DEPARTMENT_ID having count(EMPLOYEE_ID) > 5; 
++---------------+
+| DEPARTMENT_ID |
++---------------+
+|            80 |
++---------------+
+1 row in set (0.01 sec)
+
+
+8)Display employee ID for employees who did more than one job in
+the past.
+look
+
+9) Display job ID of jobs that were done by more than 3 employees
+for more than 100 days
+
+
+ select JOB_ID , DATEDIFF(END_DATE , START_DATE) AS DAYS, count(EMPLOYEE_ID) from job_history where DATEDIFF(END_DATE , START_DATE) > 100  group by JOB_ID , DAYS;
++------------+------+--------------------+
+| JOB_ID     | DAYS | count(EMPLOYEE_ID) |
++------------+------+--------------------+
+| IT_PROG    | 2018 |                  1 |
+| AC_ACCOUNT | 1497 |                  1 |
+| AC_MGR     | 1234 |                  1 |
+| MK_REP     | 1401 |                  1 |
+| ST_CLERK   |  647 |                  1 |
+| ST_CLERK   |  364 |                  1 |
+| AD_ASST    | 2100 |                  1 |
+| SA_REP     |  282 |                  1 |
+| SA_MAN     |  364 |                  1 |
+| AC_ACCOUNT | 1644 |                  1 |
++------------+------+--------------------+
+10 rows in set (0.00 sec)
+
+select JOB_ID , DATEDIFF(END_DATE , START_DATE) AS DAYS, count(EMPLOYEE_ID) from job_history where DATEDIFF(END_DATE , START_DATE) > 100  group by JOB_ID , DAYS having count(EMPLOYEE_ID) > 3;
+Empty set (0.00 sec)
+
+
+10)
+Display department ID, year, and Number of employees joined.
+select DEPARTMENT_ID , YEAR(HIRE_DATE) AS YEARS , count(EMPLOYEE_ID) from employees group by DEPARTMENT_ID , YEARS;
++---------------+-------+--------------------+
+| DEPARTMENT_ID | YEARS | count(EMPLOYEE_ID) |
++---------------+-------+--------------------+
+|            90 |  1987 |                  3 |
+|            60 |  1987 |                  5 |
+|           100 |  1987 |                  6 |
+|            30 |  1987 |                  6 |
+|            50 |  1987 |                 45 |
+|            80 |  1987 |                 34 |
+|             0 |  1987 |                  1 |
+|            10 |  1987 |                  1 |
+|            20 |  1987 |                  2 |
+|            40 |  1987 |                  1 |
+|            70 |  1987 |                  1 |
+|           110 |  1987 |                  2 |
++---------------+-------+--------------------+
+12 rows in set (0.00 sec)
+
+
+
+11. Display how many employees joined in each month of the current
+year.
+select EXTRACT(YEAR_MONTH FROM HIRE_DATE) AS MONTHS , count(EMPLOYEE_ID) from employees group by MONTHS;
++--------+--------------------+
+| MONTHS | count(EMPLOYEE_ID) |
++--------+--------------------+
+| 198706 |                 14 |
+| 198707 |                 31 |
+| 198708 |                 31 |
+| 198709 |                 30 |
+| 198710 |                  1 |
++--------+--------------------+
+5 rows in set (0.00 sec)
+
+
+12)
+
+JOINS;
